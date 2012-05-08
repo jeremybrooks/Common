@@ -1,0 +1,15 @@
+log/*.log
+tmp/*
+tmp/**/*
+*.swp
+*~
+.DS_Store
+VERSION*
+api*
+build
+dist
+deploy
+web
+common.iml
+.idea
+target
