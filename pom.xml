@@ -4,6 +4,39 @@
     <groupId>net.jeremybrooks</groupId>
     <artifactId>common</artifactId>
     <version>1.2.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>Common</name>
+    <description>Code shared between projects from jeremybrooks.net</description>
+    <url>https://github.com/jeremybrooks/Common</url>
+
+    <licenses>
+        <license>
+        <name>Public Domain</name>
+            <url>http://creativecommons.org/licenses/publicdomain/</url>
+            <distribution>repo</distribution>
+            <comments>Use this code however you want</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git@github.com:jeremybrooks/Common.git</connection>
+        	<url>https://github.com/jeremybrooks/Common</url>
+        	<developerConnection>scm:git:git@github.com:jeremybrooks/Common.git</developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+              <id>jeremybrooks</id>
+              <name>Jeremy Brooks</name>
+              <email>jeremyb@whirljack.net</email>
+              <url>http://jeremybrooks.net</url>
+        </developer>
+        <developer>
+            <name>Robert</name>
+          <email>rharder@usa.net</email>
+        </developer>
+    </developers>
 
     <dependencies>
         <dependency>
