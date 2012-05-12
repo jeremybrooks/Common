@@ -1,6 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
+
     <modelVersion>4.0.0</modelVersion>
+
     <groupId>net.jeremybrooks</groupId>
     <artifactId>common</artifactId>
     <version>1.2.0-SNAPSHOT</version>
@@ -12,7 +19,7 @@
 
     <licenses>
         <license>
-        <name>Public Domain</name>
+            <name>Public Domain</name>
             <url>http://creativecommons.org/licenses/publicdomain/</url>
             <distribution>repo</distribution>
             <comments>Use this code however you want</comments>
@@ -21,20 +28,20 @@
 
     <scm>
         <connection>scm:git:git@github.com:jeremybrooks/Common.git</connection>
-        	<url>https://github.com/jeremybrooks/Common</url>
-        	<developerConnection>scm:git:git@github.com:jeremybrooks/Common.git</developerConnection>
+        <developerConnection>scm:git:git@github.com:jeremybrooks/Common.git</developerConnection>
+        <url>git@github.com:jeremybrooks/Common.git</url>
     </scm>
 
     <developers>
         <developer>
-              <id>jeremybrooks</id>
-              <name>Jeremy Brooks</name>
-              <email>jeremyb@whirljack.net</email>
-              <url>http://jeremybrooks.net</url>
+            <id>jeremybrooks</id>
+            <name>Jeremy Brooks</name>
+            <email>jeremyb@whirljack.net</email>
+            <url>http://jeremybrooks.net</url>
         </developer>
         <developer>
             <name>Robert</name>
-          <email>rharder@usa.net</email>
+            <email>rharder@usa.net</email>
         </developer>
     </developers>
 
@@ -86,7 +93,14 @@
                     </archive>
                 </configuration>
             </plugin>
-
+                  <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.3</version>
+                    <configuration>
+                      <tagBase>git@github.com:jeremybrooks/Common.git</tagBase>
+                    </configuration>
+                  </plugin>
         </plugins>
     </build>
 </project>
