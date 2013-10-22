@@ -19,10 +19,10 @@
 
     <licenses>
         <license>
-            <name>Public Domain</name>
-            <url>http://creativecommons.org/licenses/publicdomain/</url>
+            <name>BSD</name>
+            <url>http://opensource.org/licenses/BSD-2-Clause</url>
             <distribution>repo</distribution>
-            <comments>Use this code however you want</comments>
+            <comments>Released under the BSD software license.</comments>
         </license>
     </licenses>
 
