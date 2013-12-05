@@ -18,7 +18,7 @@
 
 package net.jeremybrooks.common.util;
 
-import org.apache.log4j.Logger;
+import org.junit.Test;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -27,88 +27,48 @@ import java.io.Writer;
 import java.net.Socket;
 
 /**
- * Utility class to help with I/O tasks.
- * <p/>
- * This class uses log4j to report any errors that occur.
- *
  * @author Jeremy Brooks
  */
-public class IOUtil {
-
-	/* Utility class. All methods are public static. */
-	private static Logger logger = Logger.getLogger(IOUtil.class);
-
-
-	public static void close(InputStream in) {
-		try {
-			if (in != null) {
-				in.close();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR CLOSING INPUT STREAM.", e);
-		}
+public class IOUtilTest {
+	@Test
+	public void testCloseInputStream() throws Exception {
+		InputStream in = null;
+		IOUtil.close(in);
 	}
 
-
-	public static void close(OutputStream out) {
-		try {
-			if (out != null) {
-				out.close();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR CLOSING OUTPUT STREAM.", e);
-		}
+	@Test
+	public void testCloseOutputStream() throws Exception {
+		OutputStream out = null;
+		IOUtil.close(out);
 	}
 
-	public static void close(Reader reader) {
-		try {
-			if (reader != null) {
-				reader.close();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR CLOSING READER.", e);
-		}
+	@Test
+	public void testCloseReader() throws Exception {
+		Reader r = null;
+		IOUtil.close(r);
 	}
 
-	public static void close(Writer writer) {
-		try {
-			if (writer != null) {
-				writer.close();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR CLOSING WRITER.", e);
-		}
+	@Test
+	public void testCloseWriter() throws Exception {
+		Writer w = null;
+		IOUtil.close(w);
 	}
 
-	public static void flush(OutputStream out) {
-		try {
-			if (out != null) {
-				out.flush();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR FLUSHING OUTPUT STREAM.", e);
-		}
+	@Test
+	public void testFlushOutputStream() throws Exception {
+		OutputStream out = null;
+		IOUtil.flush(out);
 	}
 
-	public static void flush(Writer out) {
-		try {
-			if (out != null) {
-				out.flush();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR FLUSHING WRITER.", e);
-		}
+	@Test
+	public void testFlushWriter() throws Exception {
+		Writer w = null;
+		IOUtil.flush(w);
 	}
 
-	public static void close(Socket s) {
-		try {
-			if (s != null) {
-				s.close();
-			}
-		} catch (Exception e) {
-			logger.warn("ERROR CLOSING SOCKET.", e);
-		}
+	@Test
+	public void testCloseSocket() throws Exception {
+		Socket s = null;
+		IOUtil.close(s);
 	}
-
-
 }

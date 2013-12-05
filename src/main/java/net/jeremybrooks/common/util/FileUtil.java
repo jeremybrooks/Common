@@ -19,6 +19,12 @@
 package net.jeremybrooks.common.util;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 /**
@@ -40,11 +46,11 @@ public class FileUtil {
 	}
 
 	public static void getFilesRecursive(List<File> sourceList, List<File> destinationList, boolean includeHiddenFiles) {
-		FileUtil.getFilesRecursive(sourceList.toArray(new File[0]), destinationList, includeHiddenFiles);
+		FileUtil.getFilesRecursive(sourceList.toArray(new File[sourceList.size()]), destinationList, includeHiddenFiles);
 	}
 
 	public static void getFilesRecursive(List<File> sourceList, List<File> destinationList) {
-		FileUtil.getFilesRecursive(sourceList.toArray(new File[0]), destinationList, false);
+		FileUtil.getFilesRecursive(sourceList.toArray(new File[sourceList.size()]), destinationList, false);
 	}
 
 
@@ -77,6 +83,67 @@ public class FileUtil {
 					}
 				}
 			}
+		}
+	}
+
+
+	/**
+	 * Copy a file.
+	 *
+	 * @param source the source file.
+	 * @param dest   the destination file.
+	 * @throws java.io.IOException if any errors occur during the copy.
+	 */
+	public static void copy(File source, File dest) throws IOException {
+		Files.copy(source.toPath(), dest.toPath());
+	}
+
+
+	/**
+	 * Recursively delete a local directory.
+	 *
+	 * @param directory the directory to delete.
+	 * @throws Exception if directory is not a directory, or if there are any errors.
+	 */
+	public static void deleteLocalDirectory(File directory) throws Exception {
+		if (!directory.isDirectory()) {
+			throw new Exception("File " + directory.getAbsolutePath() + " is not a directory.");
+		}
+		Files.walkFileTree(directory.toPath(), new SimpleFileVisitor<Path>() {
+			@Override
+			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+					throws IOException {
+				Files.delete(file);
+				return FileVisitResult.CONTINUE;
+			}
+
+			@Override
+			public FileVisitResult postVisitDirectory(Path dir, IOException e)
+					throws IOException {
+				if (e == null) {
+					Files.delete(dir);
+					return FileVisitResult.CONTINUE;
+				} else {
+					// directory iteration failed
+					throw e;
+				}
+			}
+		});
+	}
+
+
+	/**
+	 * Delete a local file or directory.
+	 * Directories will be deleted recursively.
+	 *
+	 * @param file file or directory to delete.
+	 * @throws Exception if there are any errors.
+	 */
+	public static void deleteLocalFileOrDirectory(File file) throws Exception {
+		if (file.isFile()) {
+			Files.delete(file.toPath());
+		} else if (file.isDirectory()) {
+			deleteLocalDirectory(file);
 		}
 	}
 }
