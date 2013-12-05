@@ -1,1 +1,7 @@
-Common code shared between other projects.
+Common code shared between other projects on jeremybrooks.net
+
+This library is compiled for Java 7 and is available from Maven Central:
+
+http://search.maven.org/#browse%7C1389333177
+
+
