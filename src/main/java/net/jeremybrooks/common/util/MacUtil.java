@@ -37,8 +37,18 @@ public class MacUtil {
 	 */
 	public static void setMacMenuBar() {
 		// SET SYSTEM PROPERTY FOR MAC-STYLE MENU BAR
-		if (System.getProperty("mrj.version") != null) {
+		if (MacUtil.isRunningOnMac()) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
+	}
+
+
+	/**
+	 * Determine if the current OS is a Mac.
+	 *
+	 * @return true if running on a Mac.
+	 */
+	public static boolean isRunningOnMac() {
+		return System.getProperty("os.name").contains("Mac");
 	}
 }
