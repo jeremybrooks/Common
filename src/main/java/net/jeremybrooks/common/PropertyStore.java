@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Jeremy Brooks
+ * Copyright (c) 2013, 2017, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -19,7 +19,8 @@
 package net.jeremybrooks.common;
 
 import net.jeremybrooks.common.util.IOUtil;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,20 +35,19 @@ import java.util.Properties;
  */
 public class PropertyStore {
 
-	private Logger logger = Logger.getLogger(PropertyStore.class);
-
+	private Logger logger = LogManager.getLogger(PropertyStore.class);
 	private Properties props;
 	private File propsFile;
 
 
 	/**
 	 * Create a new instance of PropertyStore.
-	 * <p/>
+   *
 	 * <p>Properties will be saved in the user's home directory, in a file
 	 * named default.properties. This is probably not what you want,
 	 * so use the other constructors.</p>
 	 *
-	 * @throws Exception
+	 * @throws Exception if there are any errors creating the file.
 	 */
 	public PropertyStore() throws Exception {
 		this(new File(System.getProperty("user.home")), null);
@@ -56,7 +56,7 @@ public class PropertyStore {
 
 	/**
 	 * Create a new instance of PropertyStore.
-	 * <p/>
+   *
 	 * <p>Properties will be saved in the file specified in the constructor
 	 * arguments. If the directory is null or empty, the user's home
 	 * directory will be used. If the filename is null or empty, the filename
@@ -75,7 +75,7 @@ public class PropertyStore {
 
 	/**
 	 * Create a new instance of PropertyStore.
-	 * <p/>
+   *
 	 * <p>Properties will be saved in the file specified in the constructor
 	 * arguments. If the directory is null, the user's home
 	 * directory will be used. If the filename is null or empty, the filename
@@ -137,7 +137,7 @@ public class PropertyStore {
 
 	/**
 	 * Get the value for the key as an int.
-	 * <p/>
+   *
 	 * <p>If the key does not exist, 0 is returned. If you need to know if the
 	 * key is missing, use getProperty(key) and check for null.</p>
 	 *
@@ -159,7 +159,7 @@ public class PropertyStore {
 
 	/**
 	 * Get the value for the key as a long.
-	 * <p/>
+   *
 	 * <p>If the key does not exist, 0 is returned. If you need to know if the
 	 * key is missing, use getProperty(key) and check for null.</p>
 	 *
@@ -181,7 +181,7 @@ public class PropertyStore {
 
 	/**
 	 * Get the value for the key as a float.
-	 * <p/>
+   *
 	 * <p>If the key does not exist, 0.0 is returned. If you need to know if the
 	 * key is missing, use getProperty(key) and check for null.</p>
 	 *
@@ -203,7 +203,7 @@ public class PropertyStore {
 
 	/**
 	 * Get the value for the key as a double.
-	 * <p/>
+   *
 	 * <p>If the key does not exist, 0.0 is returned. If you need to know if the
 	 * key is missing, use getProperty(key) and check for null.</p>
 	 *
@@ -225,7 +225,7 @@ public class PropertyStore {
 
 	/**
 	 * Get the value for the key as a boolean.
-	 * <p/>
+	 *
 	 * <p>This method will return true if the key value is any of "true", "yes", "y",
 	 * or "1". The match is not case sensitive. If the key does not exist, false
 	 * is returned. If you need to know if the key is missing, use
@@ -258,7 +258,7 @@ public class PropertyStore {
 
 	/**
 	 * Set the value of the specified key.
-	 * <p/>
+	 *
 	 * <p>This method will set the key/value pair in the Properties object
 	 * that is backing this PropertyStore, and write the Properties object
 	 * out to disk. If your application needs to know for sure if the save was
@@ -299,7 +299,7 @@ public class PropertyStore {
 
 	/**
 	 * Set the value of the specified key.
-	 * <p/>
+	 *
 	 * <p>This is equivalent to calling setProperty(key, Integer.toString(value));</p>
 	 *
 	 * @param key   the key to be placed in the properties object.
@@ -314,7 +314,7 @@ public class PropertyStore {
 
 	/**
 	 * Set the value of the specified key.
-	 * <p/>
+	 *
 	 * <p>This is equivalent to calling setProperty(key, Long.toString(value));</p>
 	 *
 	 * @param key   the key to be placed in the properties object.
@@ -329,7 +329,7 @@ public class PropertyStore {
 
 	/**
 	 * Set the value of the specified key.
-	 * <p/>
+	 *
 	 * <p>This is equivalent to calling setProperty(key, Double.toString(value));</p>
 	 *
 	 * @param key   the key to be placed in the properties object.
@@ -344,7 +344,7 @@ public class PropertyStore {
 
 	/**
 	 * Set the value of the specified key.
-	 * <p/>
+	 *
 	 * <p>This is equivalent to calling setProperty(key, Float.toString(value));</p>
 	 *
 	 * @param key   the key to be placed in the properties object.
@@ -359,7 +359,7 @@ public class PropertyStore {
 
 	/**
 	 * Set the value of the specified key.
-	 * <p/>
+	 *
 	 * <p>This is equivalent to calling setProperty(key, Boolean.toString(value));</p>
 	 *
 	 * @param key   the key to be placed in the properties object.

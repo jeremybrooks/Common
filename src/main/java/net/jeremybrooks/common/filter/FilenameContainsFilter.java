@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Jeremy Brooks
+ * Copyright (c) 2013, 2017, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -40,8 +40,7 @@ public class FilenameContainsFilter implements FilenameFilter {
 
 	/**
 	 * Create an instance of FilenameContainsFilter that will match the specified text.
-	 * <p/>
-	 * This is equivalent to calling <code>new FilenameContainsFilter(matchText, true)</code>
+	 * <p>This is equivalent to calling {@code new FilenameContainsFilter(matchText, true)}</p>
 	 *
 	 * @param matchText text to match.
 	 */

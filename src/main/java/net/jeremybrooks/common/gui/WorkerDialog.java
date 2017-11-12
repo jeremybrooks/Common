@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Jeremy Brooks
+ * Copyright (c) 2013, 2017, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -45,117 +45,149 @@ import java.beans.PropertyChangeListener;
  */
 public class WorkerDialog implements PropertyChangeListener {
 
-	private JDialog dialog;
-	private JLabel titleLabel;
-	private JLabel messageLabel;
-	private JProgressBar progressBar;
-	private JLabel spinnerLabel;
-	private SwingWorker swingWorker;
-	private boolean useProgressBar;
+  private JDialog dialog;
+  private JLabel titleLabel;
+  private JLabel messageLabel;
+  private JProgressBar progressBar;
+  private JLabel spinnerLabel;
+  private SwingWorker swingWorker;
+  private boolean useProgressBar;
 
-	private static final int DEFAULT_WIDTH = 495;
-	private static final int DEFAULT_HEIGHT = 125;
+  private static final int DEFAULT_WIDTH = 495;
+  private static final int DEFAULT_HEIGHT = 125;
 
-	public static final String EVENT_DIALOG_TITLE = "dialogTitle";
-	public static final String EVENT_DIALOG_MESSAGE = "dialogMessage";
+  public static final String EVENT_DIALOG_TITLE = "dialogTitle";
+  public static final String EVENT_DIALOG_MESSAGE = "dialogMessage";
 
-	/**
-	 * Create a WorkerDialog with a progress bar and default height/width.
-	 *
-	 * @param owner
-	 * @param swingWorker
-	 * @param title
-	 * @param message
-	 */
-	public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message) {
-		this(owner, swingWorker, title, message, null, true, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	}
-
-	public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, int width, int height) {
-		this(owner, swingWorker, title, message, null, true, width, height);
-	}
-
-	public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon, int width, int height) {
-		this(owner, swingWorker, title, message, spinnerIcon, false, width, height);
-	}
-
-	public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon) {
-		this(owner, swingWorker, title, message, spinnerIcon, false, DEFAULT_WIDTH, DEFAULT_HEIGHT);
-	}
-
-	private WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon, boolean useProgressBar, int width, int height) {
-		this.swingWorker = swingWorker;
-		this.useProgressBar = useProgressBar;
-
-		this.dialog = new JDialog(owner, Dialog.ModalityType.APPLICATION_MODAL);
-		this.dialog.setUndecorated(true);
-
-		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout(new GridLayout(3, 0));
-		contentPanel.setBorder(new LineBorder(Color.BLACK, 2));
-
-		// top grid is the title label
-		titleLabel = new JLabel();
-		titleLabel.setText(title);
-		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPanel.add(titleLabel);
-
-		// middle grid is the progress bar or spinner icon
-		if (useProgressBar) {
-			progressBar = new JProgressBar();
-			progressBar.setStringPainted(true);
-			contentPanel.add(progressBar);
-		} else {
-			spinnerLabel = new JLabel();
-			spinnerLabel.setText("");
-			spinnerLabel.setIcon(spinnerIcon);
-			spinnerLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			contentPanel.add(spinnerLabel);
-		}
-
-		// bottom grid is the message label
-		messageLabel = new JLabel();
-		messageLabel.setText(message);
-		messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		contentPanel.add(messageLabel);
-
-		Container contentPane = dialog.getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(contentPanel, BorderLayout.CENTER);
-
-		// set up size and position on owner
-		this.dialog.setSize(width, height);
-		this.dialog.setLocationRelativeTo(owner);
-
-		// register for events from the SwingWorker
-		swingWorker.addPropertyChangeListener(this);
-	}
+  /**
+   * Create a WorkerDialog with a progress bar and default height/width.
+   *
+   * @param owner       window that owns this dialog.
+   * @param swingWorker swing worker that will report events.
+   * @param title       title for the dialog.
+   * @param message     message for the dialog.
+   */
+  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message) {
+    this(owner, swingWorker, title, message, null, true, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+  }
 
 
-	/**
-	 * Handle property change events from SwingWorker.
-	 *
-	 * @param event
-	 */
-	public void propertyChange(PropertyChangeEvent event) {
-		if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE == event.getNewValue()) {
-			dialog.setVisible(false);
-			dialog.dispose();
-		} else if (EVENT_DIALOG_TITLE.equals(event.getPropertyName())) {
-			this.titleLabel.setText(event.getNewValue().toString());
-		} else if (EVENT_DIALOG_MESSAGE.equals(event.getPropertyName())) {
-			this.messageLabel.setText(event.getNewValue().toString());
-		} else if ("progress".equals(event.getPropertyName()) && this.useProgressBar) {
-			this.progressBar.setValue((Integer) event.getNewValue());
-		}
-	}
+  /**
+   * Create a WorkerDialog with a progress bar and default height/width.
+   *
+   * @param owner       window that owns this dialog.
+   * @param swingWorker swing worker that will report events.
+   * @param title       title for the dialog.
+   * @param message     message for the dialog.
+   * @param width       make the dialog this width.
+   * @param height      make the dialog this height.
+   */
+  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, int width, int height) {
+    this(owner, swingWorker, title, message, null, true, width, height);
+  }
 
-	public Dialog getDialog() {
-		return this.dialog;
-	}
+  /**
+   * Create a WorkerDialog with a progress bar and default height/width.
+   *
+   * @param owner       window that owns this dialog.
+   * @param swingWorker swing worker that will report events.
+   * @param title       title for the dialog.
+   * @param message     message for the dialog.
+   * @param spinnerIcon icon for the spinner.
+   * @param width       make the dialog this width.
+   * @param height      make the dialog this height.
+   */
+  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon, int width, int height) {
+    this(owner, swingWorker, title, message, spinnerIcon, false, width, height);
+  }
 
-	public void executeAndShowDialog() {
-		this.swingWorker.execute();
-		this.dialog.setVisible(true);
-	}
+  /**
+   * Create a WorkerDialog with a progress bar and default height/width.
+   *
+   * @param owner       window that owns this dialog.
+   * @param swingWorker swing worker that will report events.
+   * @param title       title for the dialog.
+   * @param message     message for the dialog.
+   * @param spinnerIcon icon for the spinner.
+   */
+  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon) {
+    this(owner, swingWorker, title, message, spinnerIcon, false, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+  }
+
+  private WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon, boolean useProgressBar, int width, int height) {
+    this.swingWorker = swingWorker;
+    this.useProgressBar = useProgressBar;
+
+    this.dialog = new JDialog(owner, Dialog.ModalityType.APPLICATION_MODAL);
+    this.dialog.setUndecorated(true);
+
+    JPanel contentPanel = new JPanel();
+    contentPanel.setLayout(new GridLayout(3, 0));
+    contentPanel.setBorder(new LineBorder(Color.BLACK, 2));
+
+    // top grid is the title label
+    titleLabel = new JLabel();
+    titleLabel.setText(title);
+    titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    contentPanel.add(titleLabel);
+
+    // middle grid is the progress bar or spinner icon
+    if (useProgressBar) {
+      progressBar = new JProgressBar();
+      progressBar.setStringPainted(true);
+      contentPanel.add(progressBar);
+    } else {
+      spinnerLabel = new JLabel();
+      spinnerLabel.setText("");
+      spinnerLabel.setIcon(spinnerIcon);
+      spinnerLabel.setHorizontalAlignment(SwingConstants.CENTER);
+      contentPanel.add(spinnerLabel);
+    }
+
+    // bottom grid is the message label
+    messageLabel = new JLabel();
+    messageLabel.setText(message);
+    messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+    contentPanel.add(messageLabel);
+
+    Container contentPane = dialog.getContentPane();
+    contentPane.setLayout(new BorderLayout());
+    contentPane.add(contentPanel, BorderLayout.CENTER);
+
+    // set up size and position on owner
+    this.dialog.setSize(width, height);
+    this.dialog.setLocationRelativeTo(owner);
+
+    // register for events from the SwingWorker
+    swingWorker.addPropertyChangeListener(this);
+  }
+
+
+  /**
+   * Handle property change events from SwingWorker.
+   *
+   * @param event property change event being reported.
+   */
+  public void propertyChange(PropertyChangeEvent event) {
+    if ("state".equals(event.getPropertyName()) && SwingWorker.StateValue.DONE == event.getNewValue()) {
+      swingWorker.removePropertyChangeListener(this);
+      dialog.setVisible(false);
+      dialog.dispose();
+    } else if (EVENT_DIALOG_TITLE.equals(event.getPropertyName())) {
+      this.titleLabel.setText(event.getNewValue().toString());
+    } else if (EVENT_DIALOG_MESSAGE.equals(event.getPropertyName())) {
+      this.messageLabel.setText(event.getNewValue().toString());
+    } else if ("progress".equals(event.getPropertyName()) && this.useProgressBar) {
+      this.progressBar.setValue((Integer) event.getNewValue());
+    }
+  }
+
+  public Dialog getDialog() {
+    return this.dialog;
+  }
+
+  public void executeAndShowDialog() {
+    this.swingWorker.execute();
+    this.dialog.setVisible(true);
+  }
 }

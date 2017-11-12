@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Jeremy Brooks
+ * Copyright (c) 2013, 2017, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -23,7 +23,7 @@ import java.util.Comparator;
 /**
  * Comparator to compare two Strings.
  *
- * By default, this class is not case sensitive. To get a case-sensitive <code>StringComparator</code>,
+ * By default, this class is not case sensitive. To get a case-sensitive {@code StringComparator},
  * use the constructor which accepts a boolean.
  */
 public class StringComparator implements Comparator<String> {

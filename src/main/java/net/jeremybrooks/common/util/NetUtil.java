@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Jeremy Brooks
+ * Copyright (c) 2013, 2017, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -37,7 +37,7 @@ public class NetUtil {
 
 	/**
 	 * Set up the system properties for HTTP proxy.
-	 * <p/>
+   *
 	 * <p>This will set up the system properties for HTTP access via a proxy.
 	 * This will not perform any authentication.</p>
 	 *
@@ -52,7 +52,7 @@ public class NetUtil {
 
 	/**
 	 * Set up the system properties for HTTP proxy.
-	 * <p/>
+	 *
 	 * <p>This will set up the system properties for HTTP access via a proxy.
 	 * This will not perform any authentication.</p>
 	 *
@@ -66,7 +66,7 @@ public class NetUtil {
 
 	/**
 	 * Set up the system properties for HTTP proxy.
-	 * <p/>
+	 *
 	 * <p>This will set up the system properties for HTTP access via a proxy.
 	 * The specified username and password will be used for proxy
 	 * authentication.</p>
@@ -85,7 +85,7 @@ public class NetUtil {
 
 	/**
 	 * Set up the system properties for HTTP proxy.
-	 * <p/>
+   *
 	 * <p>This will set up the system properties for HTTP access via a proxy.
 	 * The specified username and password will be used for proxy
 	 * authentication.</p>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, Jeremy Brooks
+ * Copyright (c) 2013, 2017, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -18,7 +18,8 @@
 
 package net.jeremybrooks.common.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -28,15 +29,15 @@ import java.net.Socket;
 
 /**
  * Utility class to help with I/O tasks.
- * <p/>
- * This class uses log4j to report any errors that occur.
+ *
+ * <p>This class uses log4j to report any errors that occur.</p>
  *
  * @author Jeremy Brooks
  */
 public class IOUtil {
 
 	/* Utility class. All methods are public static. */
-	private static Logger logger = Logger.getLogger(IOUtil.class);
+	private static Logger logger = LogManager.getLogger(IOUtil.class);
 
 
 	public static void close(InputStream in) {
