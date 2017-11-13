@@ -18,10 +18,7 @@
 
 package net.jeremybrooks.common;
 
-import net.jeremybrooks.common.util.IOUtil;
 import net.jeremybrooks.common.util.StringUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -50,9 +47,7 @@ import java.io.Serializable;
  */
 public class ObjectCache {
 
-  private Logger logger = LogManager.getLogger(ObjectCache.class);
   private File cacheDir;
-
 
   /**
    * Create a new instance of Object Cache using a random directory name
@@ -101,10 +96,6 @@ public class ObjectCache {
 
     this.cacheDir = cacheDir;
     this.cacheDir.deleteOnExit();
-
-    if (logger.isDebugEnabled()) {
-      logger.debug("Using cache directory " + this.cacheDir.getAbsolutePath());
-    }
   }
 
 
@@ -124,20 +115,12 @@ public class ObjectCache {
       throw new IOException("Cannot cache a null object.");
     }
 
-    ObjectOutputStream out = null;
     File cacheFile = new File(this.cacheDir, name);
     cacheFile.deleteOnExit();
 
-    try {
-      out = new ObjectOutputStream(new FileOutputStream(cacheFile));
+    try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(cacheFile))) {
       out.writeObject(ser);
       out.flush();
-
-      if (logger.isDebugEnabled()) {
-        logger.debug("Cached object '" + name + "' as " + cacheFile.getAbsolutePath());
-      }
-    } finally {
-      IOUtil.close(out);
     }
 
   }
@@ -157,18 +140,13 @@ public class ObjectCache {
     }
 
     Object obj = null;
-    ObjectInputStream in;
     File cacheFile = new File(this.cacheDir, name);
 
     if (cacheFile.exists()) {
-      in = new ObjectInputStream(new FileInputStream(cacheFile));
-
-      try {
+      try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(cacheFile))) {
         obj = in.readObject();
       } catch (ClassNotFoundException cnfe) {
         throw new IOException("Unable to read the object from cache.", cnfe);
-      } finally {
-        IOUtil.close(in);
       }
     }
 
@@ -191,16 +169,10 @@ public class ObjectCache {
     int failures = 0;
     File cacheFile = new File(this.cacheDir, name);
 
-    if (cacheFile.exists()) {
-      if (cacheFile.delete()) {
-        if (logger.isDebugEnabled()) {
-          logger.debug("Deleted " + cacheFile.getAbsolutePath());
-        }
-      } else {
-        failures++;
-        logger.warn("Failed to delete file " + cacheFile.getAbsolutePath());
-      }
+    if (cacheFile.exists() && !cacheFile.delete()) {
+      failures++;
     }
+
     return failures;
   }
 
@@ -215,12 +187,13 @@ public class ObjectCache {
   public int clear() {
     int failures = 0;
     File[] files = this.cacheDir.listFiles();
-    for (File f : files) {
-      if (!f.delete()) {
-        failures++;
+    if (files != null) {
+      for (File f : files) {
+        if (!f.delete()) {
+          failures++;
+        }
       }
     }
     return failures;
   }
-
 }

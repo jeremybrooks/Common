@@ -18,9 +18,6 @@
 
 package net.jeremybrooks.common.util;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Reader;
@@ -36,17 +33,13 @@ import java.net.Socket;
  */
 public class IOUtil {
 
-	/* Utility class. All methods are public static. */
-	private static Logger logger = LogManager.getLogger(IOUtil.class);
-
-
 	public static void close(InputStream in) {
 		try {
 			if (in != null) {
 				in.close();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR CLOSING INPUT STREAM.", e);
+		  e.printStackTrace();
 		}
 	}
 
@@ -57,7 +50,7 @@ public class IOUtil {
 				out.close();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR CLOSING OUTPUT STREAM.", e);
+		  e.printStackTrace();
 		}
 	}
 
@@ -67,7 +60,7 @@ public class IOUtil {
 				reader.close();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR CLOSING READER.", e);
+		  e.printStackTrace();
 		}
 	}
 
@@ -77,7 +70,7 @@ public class IOUtil {
 				writer.close();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR CLOSING WRITER.", e);
+		  e.printStackTrace();
 		}
 	}
 
@@ -87,7 +80,7 @@ public class IOUtil {
 				out.flush();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR FLUSHING OUTPUT STREAM.", e);
+		  e.printStackTrace();
 		}
 	}
 
@@ -97,7 +90,7 @@ public class IOUtil {
 				out.flush();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR FLUSHING WRITER.", e);
+		  e.printStackTrace();
 		}
 	}
 
@@ -107,9 +100,7 @@ public class IOUtil {
 				s.close();
 			}
 		} catch (Exception e) {
-			logger.warn("ERROR CLOSING SOCKET.", e);
+		  e.printStackTrace();
 		}
 	}
-
-
 }

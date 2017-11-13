@@ -18,10 +18,6 @@
 
 package net.jeremybrooks.common;
 
-import net.jeremybrooks.common.util.IOUtil;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -34,8 +30,6 @@ import java.util.Properties;
  * @author jeremyb@whirljack.net
  */
 public class PropertyStore {
-
-	private Logger logger = LogManager.getLogger(PropertyStore.class);
 	private Properties props;
 	private File propsFile;
 
@@ -108,14 +102,8 @@ public class PropertyStore {
 				throw new Exception("Unable to create properties file " + propsFile.getAbsolutePath());
 			}
 		}
-		FileInputStream in = null;
-		try {
-			in = new FileInputStream(this.propsFile);
+		try (FileInputStream in = new FileInputStream(this.propsFile)) {
 			this.props.load(in);
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			IOUtil.close(in);
 		}
 	}
 
@@ -263,6 +251,9 @@ public class PropertyStore {
 	 * that is backing this PropertyStore, and write the Properties object
 	 * out to disk. If your application needs to know for sure if the save was
 	 * successful, check the return value.</p>
+   *
+   * <p>If there is an error saving the properties file, the stack trace will be printed
+   * to system out.</p>
 	 *
 	 * @param key   the key to be placed in the properties object.
 	 * @param value the value to associate with the key.
@@ -273,7 +264,6 @@ public class PropertyStore {
 		boolean success = false;
 
 		if (key == null || key.isEmpty()) {
-			logger.error("Cannot store a null or empty key.");
 			return success;
 		}
 		if (value == null) {
@@ -282,15 +272,11 @@ public class PropertyStore {
 
 		this.props.setProperty(key, value);
 
-		FileOutputStream out = null;
-		try {
-			out = new FileOutputStream(this.propsFile);
+		try (FileOutputStream out = new FileOutputStream(this.propsFile)) {
 			this.props.store(out, "Saved by " + this.getClass().getName());
 			success = true;
 		} catch (Exception e) {
-			logger.error("Unable to store properties in file " + this.propsFile.getAbsolutePath(), e);
-		} finally {
-			IOUtil.close(out);
+		  e.printStackTrace();
 		}
 
 		return success;
