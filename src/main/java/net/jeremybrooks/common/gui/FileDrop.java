@@ -43,12 +43,12 @@ import java.util.TooManyListenersException;
 
 /**
  * <p>This class makes it easy to drag and drop files from the operating
- * system to a Java program. Any <tt>java.awt.Component</tt> can be
- * dropped onto, but only <tt>javax.swing.JComponent</tt>s will indicate
+ * system to a Java program. Any java.awt.Component can be
+ * dropped onto, but only javax.swing.JComponents will indicate
  * the drop event with a changed border.</p>
  *
- * <p>To use this class, construct a new <tt>FileDrop</tt> by passing
- * it the target component and a <tt>Listener</tt> to receive notification
+ * <p>To use this class, construct a new FileDrop by passing
+ * it the target component and a Listener to receive notification
  * when file(s) have been dropped. Here is an example:</p>
  *
  * <pre>
@@ -64,11 +64,11 @@ import java.util.TooManyListenersException;
  * }
  * </pre>
  * <p>You can specify the border that will appear when files are being dragged by
- * calling the constructor with a <tt>javax.swing.border.Border</tt>. Only
- * <tt>JComponent</tt>s will show any indication with a border.</p>
+ * calling the constructor with a javax.swing.border.Border. Only
+ * JComponents will show any indication with a border.</p>
  *
- * <p>You can turn on some debugging features by passing a <tt>PrintStream</tt>
- * object (such as <tt>System.out</tt>) into the full constructor. A <tt>null</tt>
+ * <p>You can turn on some debugging features by passing a PrintStream
+ * object (such as System.out) into the full constructor. A null
  * value will result in no extra debugging information being output.</p>
  *
  * <p><em>Adapted from public domain code written by Robert Harder, rharder@usa.net</em></p>
@@ -123,7 +123,7 @@ public class FileDrop {
    * the top level container will change borders.
    *
    * @param c        Component on which files will be dropped.
-   * @param listener Listens for <tt>filesDropped</tt>.
+   * @param listener Listens for filesDropped.
    * @since 1.0
    */
   public FileDrop(final Component c, final Listener listener) {
@@ -137,12 +137,12 @@ public class FileDrop {
 
   /**
    * Constructor with a default border and the option to recursively set drop targets.
-   * If your component is a <tt>java.awt.Container</tt>, then each of its children
+   * If your component is a java.awt.Container, then each of its children
    * components will also listen for drops, though only the parent will change borders.
    *
    * @param c         Component on which files will be dropped.
    * @param recursive Recursively set children as drop targets.
-   * @param listener  Listens for <tt>filesDropped</tt>.
+   * @param listener  Listens for filesDropped.
    * @since 1.0
    */
   public FileDrop(final Component c, final boolean recursive, final Listener listener) {
@@ -156,12 +156,12 @@ public class FileDrop {
 
   /**
    * Constructor with a specified border.
-   * If your component is a <tt>java.awt.Container</tt>, then each of its children
+   * If your component is a java.awt.Container, then each of its children
    * components will also listen for drops, though only the parent will change borders.
    *
    * @param c          Component on which files will be dropped.
-   * @param dragBorder Border to use on <tt>JComponent</tt> when dragging occurs.
-   * @param listener   Listens for <tt>filesDropped</tt>.
+   * @param dragBorder Border to use on JComponent when dragging occurs.
+   * @param listener   Listens for filesDropped.
    * @since 1.0
    */
   public FileDrop(final Component c, final Border dragBorder, final Listener listener) {
@@ -177,9 +177,9 @@ public class FileDrop {
    * Full constructor with a specified border.
    *
    * @param c          Component on which files will be dropped.
-   * @param dragBorder Border to use on <tt>JComponent</tt> when dragging occurs.
+   * @param dragBorder Border to use on JComponent when dragging occurs.
    * @param recursive  Recursively set children as drop targets.
-   * @param listener   Listens for <tt>filesDropped</tt>.
+   * @param listener   Listens for filesDropped.
    *                   @param printStream an optional print stream for logging messages.
    * @since 1.0
    */
@@ -456,7 +456,7 @@ public class FileDrop {
     /**
      * This method is called when files have been successfully dropped.
      *
-     * @param fileList A list of <tt>File</tt>s that were dropped.
+     * @param fileList A list of Files that were dropped.
      * @since 1.0
      */
     void filesDropped(List<File> fileList);
