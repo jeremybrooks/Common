@@ -21,7 +21,7 @@
 
     <groupId>net.jeremybrooks</groupId>
     <artifactId>common</artifactId>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     <packaging>jar</packaging>
 
     <name>Common</name>
@@ -61,7 +61,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.13.2</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
