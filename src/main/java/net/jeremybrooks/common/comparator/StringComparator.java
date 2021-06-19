@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -28,7 +28,7 @@ import java.util.Comparator;
  */
 public class StringComparator implements Comparator<String> {
 
-	private boolean caseSensitive;
+	private final boolean caseSensitive;
 
 	/**
 	 * Create a case-insensitive StringComparator.
@@ -48,7 +48,7 @@ public class StringComparator implements Comparator<String> {
 
 	 @Override
 	 public int compare(String o1, String o2) {
-		 if (this.caseSensitive) {
+		 if (caseSensitive) {
 			 return o1.compareTo(o2);
 		 } else {
 			 return o1.compareToIgnoreCase(o2);
