@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:

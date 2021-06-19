@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -112,7 +112,7 @@ public class FileDrop {
   private static Boolean supportsDnD;
 
   /* Default border color. */
-  private static Color defaultBorderColor = new Color(0f, 0f, 1f, 0.25f);
+  private static final Color defaultBorderColor = new Color(0f, 0f, 1f, 0.25f);
 
   private PrintStream printStream;
 
@@ -245,11 +245,8 @@ public class FileDrop {
               log("Not a file list - abort.", null);
               evt.rejectDrop();
             }
-          } catch (IOException ioe) {
+          } catch (IOException | UnsupportedFlavorException ioe) {
             log("Aborting drag and drop.", ioe);
-            evt.rejectDrop();
-          } catch (UnsupportedFlavorException ufe) {
-            log("Aborting drag and drop.", ufe);
             evt.rejectDrop();
           } finally {
             // If it's a Swing component, reset its border

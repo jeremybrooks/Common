@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,8 +17,6 @@
  */
 
 package net.jeremybrooks.common.filter;
-
-import net.jeremybrooks.common.util.StringUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -49,7 +47,7 @@ public class FileExtensionFilter implements FilenameFilter {
    * @param extension extension to match.
    */
   public FileExtensionFilter(String extension) {
-    if (StringUtil.isNullOrEmpty(extension)) {
+    if (null == extension || extension.trim().isEmpty()) {
       this.extension = null;
     } else {
       if (extension.trim().startsWith(".")) {

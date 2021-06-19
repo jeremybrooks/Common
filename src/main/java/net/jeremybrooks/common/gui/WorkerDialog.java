@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -43,15 +43,14 @@ import java.beans.PropertyChangeListener;
  *
  * @author Jeremy Brooks
  */
-public class WorkerDialog implements PropertyChangeListener {
+public class WorkerDialog<T, V> implements PropertyChangeListener {
 
-  private JDialog dialog;
-  private JLabel titleLabel;
-  private JLabel messageLabel;
+  private final JDialog dialog;
+  private final JLabel titleLabel;
+  private final JLabel messageLabel;
   private JProgressBar progressBar;
-  private JLabel spinnerLabel;
-  private SwingWorker swingWorker;
-  private boolean useProgressBar;
+  private final SwingWorker<T, V> swingWorker;
+  private final boolean useProgressBar;
 
   private static final int DEFAULT_WIDTH = 495;
   private static final int DEFAULT_HEIGHT = 125;
@@ -67,7 +66,7 @@ public class WorkerDialog implements PropertyChangeListener {
    * @param title       title for the dialog.
    * @param message     message for the dialog.
    */
-  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message) {
+  public WorkerDialog(Window owner, SwingWorker<T, V> swingWorker, String title, String message) {
     this(owner, swingWorker, title, message, null, true, DEFAULT_WIDTH, DEFAULT_HEIGHT);
   }
 
@@ -82,7 +81,7 @@ public class WorkerDialog implements PropertyChangeListener {
    * @param width       make the dialog this width.
    * @param height      make the dialog this height.
    */
-  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, int width, int height) {
+  public WorkerDialog(Window owner, SwingWorker<T, V> swingWorker, String title, String message, int width, int height) {
     this(owner, swingWorker, title, message, null, true, width, height);
   }
 
@@ -97,7 +96,7 @@ public class WorkerDialog implements PropertyChangeListener {
    * @param width       make the dialog this width.
    * @param height      make the dialog this height.
    */
-  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon, int width, int height) {
+  public WorkerDialog(Window owner, SwingWorker<T, V> swingWorker, String title, String message, ImageIcon spinnerIcon, int width, int height) {
     this(owner, swingWorker, title, message, spinnerIcon, false, width, height);
   }
 
@@ -110,11 +109,11 @@ public class WorkerDialog implements PropertyChangeListener {
    * @param message     message for the dialog.
    * @param spinnerIcon icon for the spinner.
    */
-  public WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon) {
+  public WorkerDialog(Window owner, SwingWorker<T, V> swingWorker, String title, String message, ImageIcon spinnerIcon) {
     this(owner, swingWorker, title, message, spinnerIcon, false, DEFAULT_WIDTH, DEFAULT_HEIGHT);
   }
 
-  private WorkerDialog(Window owner, SwingWorker swingWorker, String title, String message, ImageIcon spinnerIcon, boolean useProgressBar, int width, int height) {
+  private WorkerDialog(Window owner, SwingWorker<T, V> swingWorker, String title, String message, ImageIcon spinnerIcon, boolean useProgressBar, int width, int height) {
     this.swingWorker = swingWorker;
     this.useProgressBar = useProgressBar;
 
@@ -137,7 +136,7 @@ public class WorkerDialog implements PropertyChangeListener {
       progressBar.setStringPainted(true);
       contentPanel.add(progressBar);
     } else {
-      spinnerLabel = new JLabel();
+      JLabel spinnerLabel = new JLabel();
       spinnerLabel.setText("");
       spinnerLabel.setIcon(spinnerIcon);
       spinnerLabel.setHorizontalAlignment(SwingConstants.CENTER);

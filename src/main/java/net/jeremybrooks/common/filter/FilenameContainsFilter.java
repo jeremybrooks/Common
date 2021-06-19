@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,8 +17,6 @@
  */
 
 package net.jeremybrooks.common.filter;
-
-import net.jeremybrooks.common.util.StringUtil;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -57,7 +55,7 @@ public class FilenameContainsFilter implements FilenameFilter {
 	 * @param caseSensitive specifies if the match should be case sensitive.
 	 */
 	public FilenameContainsFilter(String matchText, boolean caseSensitive) {
-		if (StringUtil.isNullOrEmpty(matchText)) {
+		if (null == matchText || matchText.trim().isEmpty()) {
 			this.matchText = null;
 		} else {
 			this.matchText = matchText;
