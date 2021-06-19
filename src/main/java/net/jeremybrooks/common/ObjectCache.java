@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, 2017, Jeremy Brooks
+ * Copyright (c) 2013-2021, Jeremy Brooks
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -17,8 +17,6 @@
  */
 
 package net.jeremybrooks.common;
-
-import net.jeremybrooks.common.util.StringUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -135,7 +133,7 @@ public class ObjectCache {
    *                     or if the name is null or empty.
    */
   public Object get(String name) throws IOException {
-    if (StringUtil.isNullOrEmpty(name)) {
+    if (null == name || name.trim().isEmpty()) {
       throw new IOException("Name cannot be null or empty.");
     }
 
@@ -163,7 +161,7 @@ public class ObjectCache {
    * @return number of delete failures.
    */
   public int delete(String name) {
-    if (StringUtil.isNullOrEmpty(name)) {
+    if (null == name || name.trim().isEmpty()) {
       return 0;
     }
     int failures = 0;
